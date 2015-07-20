@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="false">
+	
+
+	<!-- 接口表拆单任务 -->
+	<bean id="transactionTask_printInterface" class="com.cai310.lottery.task.ticket.PrintInterfaceDisassembleTask" />
+	<bean id="transactionTaskJob_printInterface" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_printInterface" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_printInterface" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="transactionTaskJob_printInterface" />
+		<property name="startDelay" value="10000" />
+		<property name="repeatInterval" value="5000" />
+	</bean>
+
+    <!-- cai310出票任务 -->
+    <bean id="transactionTask_cai310" class="com.cai310.lottery.task.ticket.TicketTransactionTask_cai310" />
+	<bean id="transactionTaskJob_cai310" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_cai310" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_cai310" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_cai310"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- cai310查票任务 -->
+    <bean id="queryTaskJob_cai310" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_cai310" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_cai310" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_cai310"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    <!-- cai310更新奖金 -->
+        <bean id="updateTaskJob_cai310" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_cai310" />
+		<property name="targetMethod" value="runTask_update" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_update_cai310" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="updateTaskJob_cai310"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+	<!-- 触发任务 -->
+	
+	
+	<!-- 彩票大赢家出票任务 -->
+    <bean id="transactionTask_cpdyj" class="com.cai310.lottery.task.ticket.TicketTransactionTask_cpdyj" />
+	<bean id="transactionTaskJob_cpdyj" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_cpdyj" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_cpdyj" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_cpdyj"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- 彩票大赢家查票任务 -->
+    <bean id="queryTaskJob_cpdyj" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_cpdyj" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_cpdyj" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_cpdyj"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    
+    <!-- 量彩出票任务 -->
+    <bean id="transactionTask_liang" class="com.cai310.lottery.task.ticket.TicketTransactionTask_liang" />
+	<bean id="transactionTaskJob_liang" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_liang" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_liang" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_liang"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- 量彩查票任务 -->
+    <bean id="queryTaskJob_liang" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_liang" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_liang" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_liang"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    <!-- 尊熬出票任务 -->
+    <bean id="transactionTask_zunao" class="com.cai310.lottery.task.ticket.TicketTransactionTask_zunao" />
+	<bean id="transactionTaskJob_zunao" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_zunao" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_zunao" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_zunao"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- 尊熬大赢家查票任务 -->
+    <bean id="queryTaskJob_zunao" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_zunao" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_zunao" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_zunao"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    <!-- win310出票任务 -->
+    <bean id="transactionTask_win310" class="com.cai310.lottery.task.ticket.TicketTransactionTask_win310" />
+	<bean id="transactionTaskJob_win310" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_win310" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_win310" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_win310"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- win310查票任务 -->
+    <bean id="queryTaskJob_win310" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_win310" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_win310" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_win310"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    <!-- yuecai出票任务 -->
+    <bean id="transactionTask_yuecai" class="com.cai310.lottery.task.ticket.TicketTransactionTask_yuecai" />
+	<bean id="transactionTaskJob_yuecai" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_yuecai" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_yuecai" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_yuecai"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- yuecai查票任务 -->
+    <bean id="queryTaskJob_yuecai" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_yuecai" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_yuecai" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_yuecai"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    
+    
+     <!-- 睿朗阳光出票任务 -->
+    <bean id="transactionTask_rlyg" class="com.cai310.lottery.task.ticket.TicketTransactionTask_rlyg" />
+	<bean id="transactionTaskJob_rlyg" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_rlyg" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_rlyg" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_rlyg"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- 睿朗阳光查票任务 -->
+    <bean id="queryTaskJob_rlyg" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_rlyg" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_rlyg" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_rlyg"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    
+     <!-- 睿朗阳光查票任务 -->
+    <bean id="query_remoteTicketId_TaskJob_rlyg" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_rlyg" />
+		<property name="targetMethod" value="runTask_query_remoteTicketId" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_remoteTicketId_rlyg" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="query_remoteTicketId_TaskJob_rlyg"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    
+     <!-- 天津出票任务 -->
+    <bean id="transactionTask_tianjin" class="com.cai310.lottery.task.ticket.TicketTransactionTask_tianjin" />
+	<bean id="transactionTaskJob_tianjin" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_tianjin" />
+		<property name="targetMethod" value="runTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_tianjin" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="transactionTaskJob_tianjin"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>	
+    <!-- 天津查票任务 -->
+    <bean id="queryTaskJob_tianjian" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_tianjin" />
+		<property name="targetMethod" value="runTask_query" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_tianjian" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="queryTaskJob_tianjian"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    
+     <!-- 天津查票任务 -->
+    <bean id="query_remoteTicketId_TaskJob_tianjin" class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="transactionTask_tianjin" />
+		<property name="targetMethod" value="runTask_query_remoteTicketId" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="jobSimpleTrigger_query_remoteTicketId_tianjin" class="org.springframework.scheduling.quartz.SimpleTriggerBean">  
+        <property name="jobDetail" ref="query_remoteTicketId_TaskJob_tianjin"/>
+        <property name="startDelay" value="15000"/>
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+	<!-- 触发任务 -->
+	
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 拆票线程 -->
+				<ref local="jobSimpleTrigger_printInterface" />
+			  
+			    <!-- 彩出票线程 -->
+			    <ref local="jobSimpleTrigger_cai310" />
+			    <!-- 彩查票线程-->
+			    <ref local="jobSimpleTrigger_query_cai310" />
+			    
+			    <!-- cai310奖金更新线程 -->
+			    <ref local="jobSimpleTrigger_update_cai310"/>
+			    
+			    <!-- 彩出票线程 
+			    <ref local="jobSimpleTrigger_win310" />-->
+			    <!-- 彩查票线程
+			    <ref local="jobSimpleTrigger_query_win310" />-->
+			    
+			    <!-- 注意：以下出票商都不在使用中 -->
+			    <!-- 量彩出票线程-->
+			    <ref local="jobSimpleTrigger_liang" />  
+			    <!-- 量彩查票线程 -->
+			    <ref local="jobSimpleTrigger_query_liang" />
+			    
+			    <!-- 大赢家出票线程
+			    <ref local="jobSimpleTrigger_cpdyj" /> -->
+			    <!-- 大赢家查票线程
+			    <ref local="jobSimpleTrigger_query_cpdyj" />-->
+			    
+			    <!-- 粤菜出票线程
+			    <ref local="jobSimpleTrigger_yuecai" />-->
+			    <!-- 粤菜查票线程
+			    <ref local="jobSimpleTrigger_query_yuecai" />-->
+			    
+			    <!-- 尊熬家出票线程
+			    <ref local="jobSimpleTrigger_zunao" /> -->
+			    <!-- 尊熬查票线程
+			    <ref local="jobSimpleTrigger_query_zunao" />-->
+			    
+			    <!--  睿朗阳光出票线程
+			    <ref local="jobSimpleTrigger_rlyg" />--> 
+			    <!--  睿朗阳光查票线程
+			    <ref local="jobSimpleTrigger_query_rlyg" />-->
+			    
+			    <!--  睿朗阳光查票线程
+			    <ref local="jobSimpleTrigger_query_remoteTicketId_rlyg" />-->
+			    
+			    <!--  天津出票线程
+			    <ref local="jobSimpleTrigger_tianjin" /> -->
+			    <!--  天津查票线程
+			    <ref local="jobSimpleTrigger_tianjian" />-->
+			    <!--  天津查票线程
+			    <ref local="jobSimpleTrigger_query_remoteTicketId_tianjin" />-->
+			    
+			   
+			</list> 
+		</property>
+		 <!-- zhuhui add 2011-04-04  连接线程池配置文件 -->
+        <property name="configLocation" value="classpath:quartz.properties" />
+	</bean>
+
+</beans>

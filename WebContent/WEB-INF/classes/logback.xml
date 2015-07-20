@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<configuration>
+	<substitutionProperty name="log.base" value="ticket" />
+
+	<jmxConfigurator />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${catalina.base}/logs/${log.base}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+			<!-- zhuhui motify 2011-04-10 增加只保留15天记录 通过时间触发-->
+			<maxHistory>15</maxHistory> 
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="com.cai310" level="ERROR" />
+	<logger name="com.cai310.lottery" level="ERROR" />
+	<logger name="com.cai310.jms" level="ERROR" />
+	<logger name="com.cai310.utils" level="ERROR" />
+
+	<logger name="org.springframework" level="WARN" />
+
+	<logger name="org.quartz" level="WARN" />
+
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.hibernate.cache" level="ERROR" />
+	<logger name="org.hibernate.SQL" level="ERROR" />
+
+	<logger name="org.apache.struts2" level="WARN" />
+	<logger name="com.opensymphony.xwork2" level="WARN" />
+	<logger name="com.opensymphony.xwork2.ognl.OgnlValueStack" level="ERROR" />
+
+	<root>
+		<level value="ERROR" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</root>
+</configuration>
+

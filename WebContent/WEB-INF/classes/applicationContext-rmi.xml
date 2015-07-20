@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="false">
+	
+	<bean id="ticketSupporterRmiService" class="com.miracle.rmi.RmiSecurityServiceExporter">
+        <property name="serviceName" value="TicketSupporterService"/>  
+        <property name="service" ref="lotterySupporterEntityManager"/>  
+        <property name="serviceInterface" value="com.cai310.lottery.service.lottery.ticket.LotterySupporterEntityManager"/>
+        <property name="registryPort" value="${rmi.registryPort}"/>
+        <property name="servicePort" value="${rmi.registryPort}" />
+        <property name="username" value="${rmi.username}" />
+        <property name="password" value="${rmi.password}" />
+    </bean>
+		
+	<bean id="ticketRmiService" class="com.miracle.rmi.RmiSecurityServiceExporter">
+        <property name="serviceName" value="TicketService"/>  
+        <property name="service" ref="ticketEntityManager"/>  
+        <property name="serviceInterface" value="com.cai310.lottery.service.lottery.ticket.TicketEntityManager"/>
+        <property name="registryPort" value="${rmi.registryPort}"/>
+        <property name="servicePort" value="${rmi.registryPort}" />
+        <property name="username" value="${rmi.username}" />
+        <property name="password" value="${rmi.password}" />
+    </bean>
+    
+    <bean id="queryRmiService" class="com.miracle.rmi.RmiSecurityServiceExporter">
+        <property name="serviceName" value="QueryService"/>
+        <property name="service" ref="queryService"/>
+        <property name="serviceInterface" value="com.cai310.lottery.service.QueryService"/>
+        <property name="registryPort" value="${rmi.registryPort}"/>
+        <property name="servicePort" value="${rmi.registryPort}" />
+        <property name="username" value="${rmi.username}" />
+        <property name="password" value="${rmi.password}" />
+    </bean>
+    
+    <bean id="remoteDataQueryRmiService" class="com.miracle.rmi.RmiSecurityServiceExporter">
+        <property name="serviceName" value="RemoteDataQueryService"/>
+        <property name="service" ref="remoteDataQueryService"/>
+        <property name="serviceInterface" value="com.cai310.lottery.service.lottery.ticket.RemoteDataQuery"/>
+        <property name="registryPort" value="${rmi.registryPort}"/>
+        <property name="servicePort" value="${rmi.registryPort}" />
+        <property name="username" value="${rmi.username}" />
+        <property name="password" value="${rmi.password}" />
+    </bean>  
+</beans>
