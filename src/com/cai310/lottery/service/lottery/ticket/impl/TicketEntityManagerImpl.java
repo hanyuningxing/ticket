@@ -309,8 +309,28 @@ public class TicketEntityManagerImpl implements TicketEntityManager {
 				Disjunction disjun = Restrictions.disjunction();
 				disjun.add(Restrictions.and(Restrictions.eq("lotteryType", lottery), Restrictions.gt("officialEndTime", new Date())));
 				criteria.add(disjun);
+				//criteria.addOrder(Order.asc("officialEndTime"));//安截止时间
 				criteria.addOrder(Order.asc("id"));
 				criteria.setMaxResults(TicketConstant.LIMIT_QUERY_MAXRESULTS); 
+				return criteria.list();
+			}
+		});
+	}
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<Long> findUnreturnAwardTicket(final TicketSupporter ticketSupporter,final Lottery lottery){
+		return (List<Long>)ticketDao.execute(new CriteriaExecuteCallBack() {
+			public Object execute(Criteria criteria) {
+				criteria.setProjection(Projections.property("id"));
+				criteria.add(Restrictions.eq("ticketSupporter", ticketSupporter));
+				criteria.add(Restrictions.eq("sended", Boolean.TRUE));
+//				criteria.add(Restrictions.eq("award_synchroned", Boolean.FALSE));
+				criteria.add(Restrictions.or(Restrictions.eq("award_synchroned", Boolean.FALSE),Restrictions.and(Restrictions.gt("prize", Double.valueOf(0)),Restrictions.eq("returnAward", Boolean.FALSE))));
+				criteria.add(Restrictions.eq("lotteryType", lottery));
+				criteria.add(Restrictions.lt("officialEndTime", DateUtil.getdecDateOfMinute(new Date(),TicketConstant.QUERY_MIN)));
+				criteria.addOrder(Order.asc("id"));
+				criteria.setMaxResults(TicketConstant.LIMIT_QUERY_MAXRESULTS/100); 
 				return criteria.list();
 			}
 		});

@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 
 <configuration>
-	<substitutionProperty name="log.base" value="ticket" />
+	<substitutionProperty name="log.base" value="lottery" />
 
 	<jmxConfigurator />
 

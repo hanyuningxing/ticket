@@ -142,6 +142,9 @@ public enum PassType {
 
 	/** 过关方式值，用一个二进制位表示 */
 	private final int value;
+	
+	/** 过关方式值，用一个十进制位表示 */
+	private final int tvalue;
 
 	// =========================================================================
 
@@ -182,9 +185,13 @@ public enum PassType {
 		this.matchCount = matchCount;
 
 		int units = 0;
+		int sum = 0;
 		for (int passMatch : passMatchs) {
 			units += MathUtils.comp(passMatch, this.matchCount);
+			sum+=1 << (passMatch-1);
 		}
+		this.tvalue = sum;
+		
 		this.units = units;
 
 		if (this.matchCount == 1) {
@@ -216,7 +223,11 @@ public enum PassType {
 		return value;
 	}
 
+	public int getTvalue() {
+		return tvalue;
+	}
 	// =========================================================================
+
 
 	/**
 	 * 是否选择了该过关方式
@@ -234,6 +245,7 @@ public enum PassType {
 	 */
 	public boolean isForMultipleMode() {
 		return this.passMatchs.length == 1;
+//		return this.passMatchs.length > 1; 暂时不能修改 更新中奖不支持多选过关
 	}
 
 	// =========================================================================
@@ -308,4 +320,5 @@ public enum PassType {
 		}
 		return sb.toString();
 	}
+	
 }

@@ -509,6 +509,7 @@ public class DateUtil {
 		System.out.println(DateUtil.dateToStr(getTodayDate(new Date()),"yyyyMMdd"));
 
 		System.out.println(DateUtil.dateToStr(getYesterDate(new Date()),"yyyyMMdd"));
+		System.out.println(DateUtil.dateToStr(DateUtil.getdecDateOfDate(new Date(),7),"yyyy-MM-dd HH:mm:ss"));
 	}
 	
 }

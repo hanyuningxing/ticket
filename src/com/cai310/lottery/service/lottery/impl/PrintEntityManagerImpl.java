@@ -62,6 +62,7 @@ public class PrintEntityManagerImpl implements PrintEntityManager {
 			public Object execute(Criteria criteria) {
 				criteria.add(Restrictions.eq("printState", PrintInterfaceState.UNDISASSEMBLE));
 				criteria.add(Restrictions.gt("createTime", DateUtil.getdecDateOfMinute(new Date(),60*12)));
+				//criteria.addOrder(Order.asc("officialEndTime"));//安截止时间
 				criteria.addOrder(Order.asc("id"));
 				criteria.setMaxResults(TicketConstant.QUERY_MAXRESULTS); 
 				return criteria.list();

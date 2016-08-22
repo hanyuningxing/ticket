@@ -67,7 +67,7 @@ public class PrintInterfaceDisassembleTask {
 	private List<TicketDTO> ticketList = null;
 	
 	public synchronized void runTask() throws Exception {
-		logger.debug("出票接口表拆单任务执行...");
+		logger.error("出票接口表拆单任务执行...");
 			List<PrintInterface> printInterfaceList = printEntityManager.findUnDisassemblePrintInterface();
 			for (PrintInterface printData : printInterfaceList) {
 				try {
@@ -136,6 +136,11 @@ public class PrintInterfaceDisassembleTask {
 				    continue;
 				}
 			}
+			String num = "";
+			if(printInterfaceList!=null){
+				num = printInterfaceList.size()+"";
+			}
+			logger.error("出票接口表拆单任务结束..."+num);
 			taskInfoDataEntityManager.updateTaskInfoData(TaskState.RUN, TaskType.DISASSEMBLE, TaskType.DISASSEMBLE.getTypeName()+"正常");
 		
 	}

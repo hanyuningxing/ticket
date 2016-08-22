@@ -87,6 +87,33 @@
     <listener-class>com.cai310.lottery.web.listener.RMIStartupListenter</listener-class>
   </listener>
   <servlet>
+    <servlet-name>ticketServlet</servlet-name>
+    <servlet-class>com.cai310.lottery.ticket.TicketServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ticketServlet</servlet-name>
+    <url-pattern>/ticketNotice</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>bdMatchServlet</servlet-name>
+    <servlet-class>com.cai310.lottery.ticket.BDMatchServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bdMatchServlet</servlet-name>
+    <url-pattern>/getBDMatch</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>bdMatchSpServlet</servlet-name>
+    <servlet-class>com.cai310.lottery.ticket.BDMatchSpServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bdMatchSpServlet</servlet-name>
+    <url-pattern>/getBDMatchSp</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>JspSupportServlet</servlet-name>
     <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
     <load-on-startup>0</load-on-startup>

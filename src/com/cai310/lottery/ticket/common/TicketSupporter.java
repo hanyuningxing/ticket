@@ -21,7 +21,10 @@ public enum TicketSupporter {
 	LIANG("量彩"),
 	YUECAI("粤彩"),//11
 	WIN310("本地"),//12热点
-	ZHONG("中彩");//中彩
+	ZHONG("中彩"),//中彩
+	QIU310("鸿"),
+	LOCAL("本地自动"),
+	BEIDAN("北单");
 	private final String supporterName;
 	
 	private TicketSupporter(String supporterName) {

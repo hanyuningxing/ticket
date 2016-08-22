@@ -125,6 +125,28 @@ public class Ticket extends IdEntity{
 	private Date pauseOperTime;
 	
 	private Date ticketTime;
+	
+	/** 中奖总金额 来自第三方出票*/                          
+	private Double prize;        
+	/** 税金 来自第三方出票*/                          
+	private Double tax;        
+	
+	/** 退票金额 来自第三方出票*/                          
+	private Double returnMoney;
+	                                    
+	/** 中奖详情 来自第三方出票*/                          
+	private String detail;
+	
+	/** 是否返奖 来自第三方出票*/
+	private boolean returnAward;
+	/** 是否获取中奖 来自第三方出票*/
+	private boolean award_synchroned;
+	
+	/** 返奖时间 来自第三方出票*/
+	private Date returnAwardTime;
+	
+	/** 期次对应id 来自第三方出票*/
+	private String issueId;
 	/* ----------- getter and setter method ----------- */
 
 	/**
@@ -606,6 +628,71 @@ public class Ticket extends IdEntity{
 
 	public void setTicketTime(Date ticketTime) {
 		this.ticketTime = ticketTime;
+	}
+	@Column
+	public Double getPrize() {
+		return prize;
+	}
+
+	public void setPrize(Double prize) {
+		this.prize = prize;
+	}
+	@Column
+	public Double getReturnMoney() {
+		return returnMoney;
+	}
+
+	public void setReturnMoney(Double returnMoney) {
+		this.returnMoney = returnMoney;
+	}
+	@Column
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	@Column(columnDefinition ="bit(1) default 0")
+	public boolean isReturnAward() {
+		return returnAward;
+	}
+
+	public void setReturnAward(boolean returnAward) {
+		this.returnAward = returnAward;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column
+	public Date getReturnAwardTime() {
+		return returnAwardTime;
+	}
+
+	public void setReturnAwardTime(Date returnAwardTime) {
+		this.returnAwardTime = returnAwardTime;
+	}
+	@Column
+	public String getIssueId() {
+		return issueId;
+	}
+
+	public void setIssueId(String issueId) {
+		this.issueId = issueId;
+	}
+	@Column
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+	@Column(columnDefinition ="bit(1) default 0")
+	public boolean isAward_synchroned() {
+		return award_synchroned;
+	}
+
+	public void setAward_synchroned(boolean award_synchroned) {
+		this.award_synchroned = award_synchroned;
 	}
     
     

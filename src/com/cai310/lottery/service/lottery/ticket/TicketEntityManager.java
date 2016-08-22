@@ -80,6 +80,11 @@ public interface TicketEntityManager {
 	 * @return
 	 */
 	public List<Long> findTicket(final TicketSupporter ticketSupporter,final Lottery lottery);
+	/**
+	 * 查找未返奖的票
+	 * @return
+	 */
+	public List<Long> findUnreturnAwardTicket(final TicketSupporter ticketSupporter,final Lottery lottery);
 	
 	/**
 	 * 手动重置出票方的方案(默认是送票成功设置出票商，若设置了出票商但未发送票的即为重置)
