@@ -93,7 +93,7 @@ public class TicketTransactionTask_bd {
 				Ticket ticket = null;
 				try{
 					ticket = new Ticket();
-					ticket.setId(Long.valueOf(queryPVisitor.getOrderId()));
+					ticket.setId(tk.getId());
 					queryTicket(queryPVisitor,ticket);
 				}catch (Exception e) {
 					logger.error("彩票｛"+ticket.getId()+"｝查询出错"+e.getMessage());
@@ -108,6 +108,7 @@ public class TicketTransactionTask_bd {
 	}
 	public void runTask() throws Exception {
 		logger.error("出票交易任务执行...");
+		long time = System.currentTimeMillis();
 		List<Ticket> ticketListTemp = Lists.newArrayList();
 		List<LotterySupporter> lotterySupporters = lotterySupporterEntityManager.findLotteryBySupporter(TicketSupporter.BEIDAN);
 		if(lotterySupporters!=null && !lotterySupporters.isEmpty()){
@@ -116,6 +117,7 @@ public class TicketTransactionTask_bd {
 				try{
 					 Lottery lottery = lotterySupporter.getLotteryType();
 					 List<Long> ticketList = ticketEntityManager.findTicket(TicketSupporter.BEIDAN,lottery);
+					 logger.error("待出票"+ticketList.size()+"个-查询耗时"+(System.currentTimeMillis()-time)/1000+"秒");
 					 if(ticketList==null || ticketList.isEmpty())continue;
 					 BeiDanUtil cpUtil = null;
 					 Ticket ticket;
@@ -151,12 +153,14 @@ public class TicketTransactionTask_bd {
 				}
 			}
 		}
-		
-		// 人工切换出票
+		logger.error("出票交易任务结束，耗时"+(System.currentTimeMillis()-time)/1000+"秒");
+		// 人工切换出票 没有建立索引查询耗时
 		// 1查人工切换的票 2按玩法分组 3按玩法发送
-		List<Ticket> ticketsOfReset = ticketEntityManager.findTicketsOfReset(TicketSupporter.BEIDAN);
-		if (ticketsOfReset == null || ticketsOfReset.isEmpty())
+		/*List<Ticket> ticketsOfReset = ticketEntityManager.findTicketsOfReset(TicketSupporter.BEIDAN);
+		if (ticketsOfReset == null || ticketsOfReset.isEmpty()){
+			logger.error("人工切换出票，耗时"+(System.currentTimeMillis()-time)/1000+"秒");
 			return;
+		}
 		Map<Lottery, List<Ticket>> ticketsOfLottery = Maps.newHashMap();
 		Lottery lotteryType = null;
 		for (Ticket ticket : ticketsOfReset) {
@@ -208,7 +212,7 @@ public class TicketTransactionTask_bd {
 				continue;
 			}
 		}
-				
+		logger.error("出票交易任务结束，耗时"+(System.currentTimeMillis()-time)/1000+"秒");*/
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
@@ -280,6 +284,8 @@ public class TicketTransactionTask_bd {
 				}else{
 					String result = "";
 					if(cpResultVisitor.getResult().indexOf(",")>-1){
+						String[] cpr = cpResultVisitor.getResult().split(",");
+						if(cpr.length>0)
 						result = cpResultVisitor.getResult().split(",")[0];
 					}
 					if(result.equals("1063")){
@@ -294,6 +300,13 @@ public class TicketTransactionTask_bd {
 						ticket.setOrderNo(cpResultVisitor.getOrderId());
 						ticket.setTicketSupporter(TicketSupporter.BEIDAN);
 						ticketEntityManager.saveTicket(ticket);
+//					}else if(result.equals("1016")){
+//						///截止
+//						ticket = ticketEntityManager.getTicket(ticket.getId());
+//						ticket.setStateCode("2");
+//						ticket.setStateModifyTime(new Date());
+//						ticket.setTicketSupporter(TicketSupporter.BEIDAN);
+//						ticketEntityManager.saveTicket(ticket);
 					}else{
 						ticket.setSendTime(new Date());
 						ticketEntityManager.saveTicket(ticket);
